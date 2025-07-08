@@ -41,7 +41,7 @@ export const usePosts = (): UsePostsResult => {
 
   const addPost = (newPost: { title: string; body: string }) => {
     const post: Post = {
-      id: Date.now(), // Simple ID generation for demo
+      id: Date.now(),
       title: newPost.title,
       body: newPost.body,
       userId: 1,
