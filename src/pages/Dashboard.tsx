@@ -9,6 +9,7 @@ import { usePosts } from "@/hooks/usePosts";
 import type { Post } from "@/types";
 import { LayoutGrid, List } from "lucide-react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Dashboard = () => {
   const { loading, error, addPost, searchTerm, setSearchTerm, filteredPosts } =
@@ -18,7 +19,6 @@ const Dashboard = () => {
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [viewMode, setViewMode] = useState<"grid" | "compact">("grid");
 
-  // Pagination logic
   const totalPages = Math.ceil(filteredPosts.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const paginatedPosts = filteredPosts.slice(
@@ -26,7 +26,6 @@ const Dashboard = () => {
     startIndex + itemsPerPage
   );
 
-  // Reset to first page when search changes
   const handleSearchChange = (term: string) => {
     setSearchTerm(term);
     setCurrentPage(1);
@@ -54,13 +53,12 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
-      {/* Header */}
       <div className="bg-white/70 backdrop-blur-sm border-b border-border/50 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
             <div>
               <h1 className="text-3xl font-bold bg-gradient-primary bg-clip-text text-black">
-                Posts Dashboard
+                <Link to="/">Posts Dashboard</Link>
               </h1>
               <p className="text-muted-foreground mt-1">
                 Manage and explore your content library
@@ -74,9 +72,7 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {/* Main Content */}
       <div className="max-w-7xl mx-auto px-6 py-8">
-        {/* Controls Bar */}
         <div className="flex flex-col md:flex-row gap-4 mb-8">
           <div className="flex-1">
             <SearchBar
@@ -114,7 +110,6 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* Posts List */}
         <div className="space-y-8">
           <PostList
             posts={paginatedPosts}
@@ -123,7 +118,6 @@ const Dashboard = () => {
             variant={viewMode === "grid" ? "default" : "compact"}
           />
 
-          {/* Pagination */}
           {!loading && filteredPosts.length > 0 && (
             <Pagination
               currentPage={currentPage}
@@ -137,7 +131,6 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {/* Post Detail Modal */}
       <PostDetail
         post={selectedPost}
         open={!!selectedPost}

@@ -71,7 +71,10 @@ export const Pagination = ({
             value={itemsPerPage.toString()}
             onValueChange={(value) => onItemsPerPageChange(Number(value))}
           >
-            <SelectTrigger className="w-16 h-8 cursor-pointer">
+            <SelectTrigger
+              className="w-16 h-8 cursor-pointer"
+              aria-label="Items per page"
+            >
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
